@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
+import axios from "axios"
 
-const FaceDetection = () => {
+const FaceDetection = ({setmusics}) => {
   const videoRef = useRef();
 
 
@@ -51,6 +52,14 @@ const FaceDetection = () => {
         }
         console.log(_mood);
 
+        await axios.get(`http://localhost:3000/songs?mood=${_mood}`).then(response =>{
+          console.log(response.data.song);
+
+          setmusics(response.data.song)
+          
+        })
+
+        
            
   }
 
